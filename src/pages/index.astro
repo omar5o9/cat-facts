@@ -5,7 +5,7 @@ import '../styles/global.css';
 
 
 // data source
-const source = 'https://cat-fact.herokuapp.com/facts';
+const source = 'https://drop-api.ea.com/rating/fc-24';
 // fetch the data
 const res = await fetch(source); 
 // store retreived data
@@ -21,12 +21,12 @@ const data = await res.json();
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 
-		<title>Retreive and and display external API data with Astro</title>
+		<title>FUT Data</title>
 	</head>
 	<body>
 		
 		<header class="masthead">
-			<h1 class="site-title">Gallery</h1>
+			<h1 class="site-title">Ultimate Team</h1>
 		</header>
 
 		<main id="content" class="main-area">
@@ -35,10 +35,16 @@ const data = await res.json();
 		  
 				<!-- Your API Data -->
 				{
-					data.map((fact) => (
+					data.items.map((item) => (
 						<li class="card">
-							<h2 class="card-title
-							">{fact.text}</h2>
+							<img src={item.avatarUrl} alt={item.title} />
+							<h2>{item.firstName} {item.lastName}</h2>
+							<p>Rating : {item.overallRating}</p>
+							<img src={item.nationality.imageUrl} alt={item.nationality.label} />
+							<p> {item.nationality.label} </p>
+							<img src={item.team.imageUrl} alt={item.team.label} />
+							<p> {item.team.label} </p>
+
 						</li>
 					))
 				}
